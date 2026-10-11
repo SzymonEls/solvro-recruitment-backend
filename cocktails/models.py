@@ -8,6 +8,7 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=200, unique=True)
     description = models.TextField()
     is_alcoholic = models.BooleanField()
+    image_url = models.URLField(blank=True)
 
     class Meta:
         ordering = ['name']
