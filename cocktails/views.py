@@ -9,12 +9,15 @@ class IngredientViewSet(viewsets.ModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
     filterset_class = IngredientFilter
+    ordering_fields = '__all__'
 
 class CocktailViewSet(viewsets.ModelViewSet):
     queryset = Cocktail.objects.prefetch_related('cocktail_ingredients__ingredient')
     serializer_class = CocktailSerializer
     filterset_class = CocktailFilter
+    ordering_fields = '__all__'
 
 class CocktailIngredientViewSet(viewsets.ModelViewSet):
     queryset = CocktailIngredient.objects.select_related('ingredient', 'cocktail')
     serializer_class = CocktailIngredientSerializer
+    ordering_fields = '__all__'
