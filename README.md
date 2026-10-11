@@ -15,3 +15,6 @@ python manage.py runserver
 ```
 
 The API is available at `http://127.0.0.1:8000/api/`.
+
+## Docs
+API documentation (Swagger UI): `http://127.0.0.1:8000/api/docs/`.

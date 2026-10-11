@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'cocktails',
     'rest_framework',
     'django_filters',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -136,4 +137,11 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend',
         'cocktails.filters.StrictOrderingFilter',
     ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Cocktails API',
+    'DESCRIPTION': 'REST API for managing cocktails and their ingredients.',
+    'VERSION': '1.0.0',
 }
