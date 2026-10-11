@@ -31,7 +31,7 @@ class Cocktail(models.Model):
 class CocktailIngredient(models.Model):
     cocktail = models.ForeignKey(Cocktail, on_delete=models.CASCADE, related_name='cocktail_ingredients')
     ingredient = models.ForeignKey(Ingredient, on_delete=models.PROTECT, related_name='cocktail_ingredients')
-    amount = models.DecimalField(max_digits=6, decimal_places=2,validators=[MinValueValidator(Decimal('0.01'))])
+    amount = models.DecimalField(max_digits=8, decimal_places=2,validators=[MinValueValidator(Decimal('0.01'))])
     unit = models.CharField(max_length=20)
 
     class Meta:
