@@ -18,3 +18,7 @@ The API is available at `http://127.0.0.1:8000/api/`.
 
 ## Docs
 API documentation (Swagger UI): `http://127.0.0.1:8000/api/docs/`.
+
+## Database schema
+
+![Database schema](docs/db-schema.png)
