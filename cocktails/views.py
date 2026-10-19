@@ -6,6 +6,11 @@ from django.db.models import ProtectedError
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 
+from rest_framework import generics, permissions
+
+from .permissions import IsAuthorOrAdminOrReadOnly
+from .serializers import RegisterSerializer
+
 
 class IngredientViewSet(viewsets.ModelViewSet):
     queryset = Ingredient.objects.all()
@@ -30,12 +35,22 @@ class IngredientViewSet(viewsets.ModelViewSet):
 
 
 class CocktailViewSet(viewsets.ModelViewSet):
-    queryset = Cocktail.objects.prefetch_related('cocktail_ingredients__ingredient')
+    queryset = Cocktail.objects.select_related('author').prefetch_related('cocktail_ingredients__ingredient')
     serializer_class = CocktailSerializer
     filterset_class = CocktailFilter
     ordering_fields = '__all__'
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsAuthorOrAdminOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
 
 class CocktailIngredientViewSet(viewsets.ModelViewSet):
     queryset = CocktailIngredient.objects.select_related('ingredient', 'cocktail')
     serializer_class = CocktailIngredientSerializer
     ordering_fields = '__all__'
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsAuthorOrAdminOrReadOnly]
+
+class RegisterView(generics.CreateAPIView):
+    serializer_class = RegisterSerializer
+    permission_classes = [permissions.AllowAny]

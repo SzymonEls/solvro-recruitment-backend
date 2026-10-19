@@ -3,6 +3,8 @@ from decimal import Decimal
 from django.db import models
 from django.core.validators import MinValueValidator
 
+from django.conf import settings
+
 # Create your models here.
 class Ingredient(models.Model):
     name = models.CharField(max_length=200, unique=True)
@@ -22,6 +24,13 @@ class Cocktail(models.Model):
     category = models.CharField(max_length=200)
     instruction = models.TextField()
     ingredients = models.ManyToManyField(Ingredient, through='CocktailIngredient', related_name='cocktails')
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='cocktails',
+    )
 
     class Meta:
         ordering = ['name']

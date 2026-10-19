@@ -47,7 +47,7 @@ class CocktailFilter(django_filters.FilterSet):
 
     class Meta:
         model = Cocktail
-        fields = ['name', 'category', 'ingredient', 'ingredient_name', 'is_alcoholic']
+        fields = ['name', 'category', 'ingredient', 'ingredient_name', 'is_alcoholic', 'author']
 
     def filter_is_alcoholic(self, queryset, name, value):
         if value:
